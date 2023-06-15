@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Header from './Header'
+import Body from './Body'
+/** @jsxImportSource @emotion/react */
+import { css, Global } from "@emotion/react";
+import { ItemType } from './type';
+
 
 function App() {
+  const [tabItemValue, setTabItemValue] = useState<ItemType>("first")
+
+  const handleTabItemValueChange = (event: any) => {
+    console.log(event.target.value)
+    setTabItemValue(event.target.value);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Global styles={globalCss} />
+      <Header tabItemValue={tabItemValue} onClick={(event: any) => handleTabItemValueChange(event)}/>
+      <Body selectItem={tabItemValue} />
+    </>
   );
 }
 
 export default App;
+
+const globalCss = css`
+  body {
+    width: 780px;
+    height: 500px;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+`

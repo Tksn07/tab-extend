@@ -1,0 +1,1 @@
+export type ItemType = "first" | "second" | "third" | "fourth" | "fifth" | "sixth" | "setting"
