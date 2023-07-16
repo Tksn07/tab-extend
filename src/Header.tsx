@@ -16,8 +16,8 @@ const Header = ({
 
   return (
     <header>
-      <nav>
-        <ul css={Navigation}>
+      <nav css={Navigation}>
+        <ul css={ulWrapper}>
           <li css={[Tab, TabFirst]}>
             <input type="radio" name="tabItem" value="first" id="first" css={inputWrapper} checked={tabItemValue === "first"} onChange={onClick}/>
             <label htmlFor="first" css={itemLabel}>コンテンツ1</label>
@@ -42,6 +42,8 @@ const Header = ({
             <input type="radio" name="tabItem" value="sixth" id="sixth" css={inputWrapper} checked={tabItemValue === "sixth"} onChange={onClick}/>
             <label htmlFor="sixth" css={itemLabel}>コンテンツ6</label>
           </li>
+        </ul>
+        <ul css={settingUlWrapper}>
           <li css={[Tab, SettingTab]}>
             <input type="radio" name="setting" value="setting" id="setting" css={inputWrapper} checked={tabItemValue === "setting"} onChange={onClick}/>
             <label htmlFor="setting" css={itemLabel}><AiOutlineSetting /></label>
@@ -56,6 +58,20 @@ const Header = ({
 export default Header
 
 const Navigation = css`
+  display: flex;
+  justify-content: space-between;
+`
+
+const ulWrapper = css`
+  list-style:none;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  margin-bottom: 0px;
+  padding: 0px;
+`
+
+const settingUlWrapper = css`
   list-style:none;
   display: flex;
   align-items: center;
@@ -69,6 +85,7 @@ const inputWrapper = css`
 `
 
 const Tab = css`
+  width: 100%;
   display: grid;
   place-items: center;
   color: #FFFFFF;

@@ -1,68 +1,60 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Bars } from 'react-loader-spinner'
 import { ItemType } from "./type";
+import Setting from "./setting";
+import ErrorNotSrc from "./components/404";
+import Loading from "./components/loading";
 
 type Props = {
   selectItem: ItemType
 }
 
 const Body = ({selectItem}: Props) => {
-  const [isCompletedLoad, setIsCompletedLoad] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
+
   const handleOnload = () => {
-    setIsCompletedLoad(false)
+    setIsLoading(false)
   }
 
-  const setIframeUrl = (selectItem: ItemType) => {
-    switch(selectItem) {
-      case "first":
-        return "https://caniuse.com/"
-      case "second":
-        return "https://caninclude.glitch.me/"
-      case "third":
-        return "https://bundlephobia.com/"
-      case "fourth":
-        return "https://caniuse.com/"
-      case "fifth":
-        return "https://caniuse.com/"
-      case "sixth":
-        return "https://www.youtube.com/"
-    }
+  useEffect(() => {
+    setIsLoading(true)
+  }, [selectItem])
+
+  const getIframeUrl = (selectItem: ItemType) => {
+    return localStorage.getItem(selectItem)
   }
+  const url = getIframeUrl(selectItem)
+
+  useEffect(() => {
+    setIsLoading(true)
+  }, [])
 
   return (
-    <body>
-      <div css={content(isCompletedLoad)}>
-        <Bars
-          height="80"
-          width="80"
-          color="#4fa94d"
-          ariaLabel="bars-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
-          visible={true}
-        />
-      </div>
-      <iframe css={[myIframe, hiddenIframe]} id="my-iframe" title="can i use" loading="lazy" width="780" height="500" src={setIframeUrl(selectItem)} onLoad={handleOnload}></iframe>
+    <body css={bodyWrapper}>
+      { selectItem == 'setting' && <Setting /> }
+      { url === null || url === '' ? <ErrorNotSrc /> :
+        <>
+          {isLoading && <Loading />}
+          <iframe css={[myIframe, hiddenIframe(isLoading)]} id="my-iframe" title="can i use" loading="lazy" width="780" height="500" src={url} onLoad={handleOnload}></iframe>
+        </>
+      }
     </body>
   )
 }
 
 export default Body
 
-const content = (isVisible: boolean) => (
-  css`
-    display: ${isVisible ? "grid" : "none"};
-    place-items: center;
-    width: 100%;
-  `
-);
-
 const myIframe = css`
   border: none; 
 `
 
-const hiddenIframe = css`
-  // visibility: hidden;
+const hiddenIframe = (isVisible: boolean) => (css`
+  position: ${isVisible ? 'fixed' : 'static'};
+  opacity: ${isVisible ? 0 : 1};
+`)
+
+const bodyWrapper = css`
+  background-color: white;
 `

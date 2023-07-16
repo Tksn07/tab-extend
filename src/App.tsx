@@ -11,9 +11,9 @@ function App() {
   const [tabItemValue, setTabItemValue] = useState<ItemType>("first")
 
   const handleTabItemValueChange = (event: any) => {
-    console.log(event.target.value)
     setTabItemValue(event.target.value);
   };
+
   return (
     <>
       <Global styles={globalCss} />
@@ -30,5 +30,7 @@ const globalCss = css`
     width: 780px;
     height: 500px;
     font-family: 'Noto Sans JP', sans-serif;
+    overflow: hidden;
+    background-color: #F0F2F5;
   }
 `

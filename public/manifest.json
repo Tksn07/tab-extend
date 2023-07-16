@@ -1,9 +1,15 @@
 {
   "name": "tab-extend",
-  "description": "色んなタブをいつでも確認できるよ！",
+  "description": "普段から常に確認するページを他のタブに移動することなく拡張機能から確認することが出来るよ！すごい！！",
   "version": "1.0",
   "manifest_version": 3,
   "action": {
     "default_popup": "index.html"
-  }
+  },
+  "icons": {
+    "16" : "icon16.png",
+    "48" : "icon48.png",
+    "128" : "icon128.png"
+  },
+  "author": "taka"
 }
